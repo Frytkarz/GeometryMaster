@@ -19,6 +19,8 @@ namespace Assets.GameModule.Scripts.Excercises {
             points[points.Length - 1] += move;
         }
 
+        public abstract Vector2[] GetSolution(Vector2[] excercisePoints);
+
         public abstract float Validate(Vector2[] excercisePoints, Vector2[] userPoints);
     }
 }

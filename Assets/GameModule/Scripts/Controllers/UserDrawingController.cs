@@ -11,11 +11,14 @@ namespace Assets.GameModule.Scripts.Controllers {
         [SerializeField]
         private UILineRenderer excerciseLine;
         [SerializeField]
+        private UILineRenderer solutionLine;
+        [SerializeField]
         private Text txtResult;
 
         private Vector2 lastclick = new Vector2(0, 0);
         private List<AbstractExcercise> excercises;
         private int index = 0;
+        private bool validated = false;
 
         private IEnumerator Start() {
             yield return null;
@@ -51,18 +54,28 @@ namespace Assets.GameModule.Scripts.Controllers {
         }
 
         public void OnOkClick() {
+            if(validated) {
+                Reload();
+                return;
+            }
+
+            solutionLine.gameObject.SetActive(true);
+            solutionLine.Points = excercises[index].GetSolution(excerciseLine.Points);
+            solutionLine.SetAllDirty();
             txtResult.text = excercises[index].Validate(excerciseLine.Points, userLine.Points).ToString();
-            Reload();
+            validated = true;
         }
 
         private void Reload() {
             if(++index >= excercises.Count)
                 index = 0;
 
+            solutionLine.gameObject.SetActive(false);
             excerciseLine.Points = excercises[index].GetExcercise();
             excerciseLine.SetAllDirty();
             userLine.Points = excercises[index].GetUser(excerciseLine.Points);
             userLine.SetAllDirty();
+            validated = false;
         }
     }
 }

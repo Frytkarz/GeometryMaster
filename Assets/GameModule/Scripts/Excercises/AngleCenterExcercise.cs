@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.GameModule.Scripts.Excercises {
     public class AngleCenterExcercise : AbstractExcercise {
@@ -11,6 +10,12 @@ namespace Assets.GameModule.Scripts.Excercises {
             result[0] = new Vector2(Random.Range(0, 1f) * size, Random.Range(0, 1f) * size);
             result[1] = new Vector2(Random.Range(0, 1f) * size, Random.Range(0, 1f) * size);
             result[2] = new Vector2(Random.Range(0, 1f) * size, Random.Range(0, 1f) * size);
+            return result;
+        }
+
+        public override Vector2[] GetSolution(Vector2[] excercisePoints) {
+            Vector2[] result = new Vector2[2];;
+            result[0] = excercisePoints[1];
             return result;
         }
 
